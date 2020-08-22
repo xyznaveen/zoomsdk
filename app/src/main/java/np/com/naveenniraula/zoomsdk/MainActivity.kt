@@ -2,6 +2,7 @@ package np.com.naveenniraula.zoomsdk
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -28,15 +29,43 @@ class MainActivity : AppCompatActivity(), ZoomSDKInitializeListener, ZoomSDKAuth
                 ZoomSDK.getInstance(),
                 object : MeetingHostHelper.MeetingStatusListener {
                     override fun onMeetingFailed() {
-                        Toast.makeText(this@MainActivity, "Could not host a meeting.", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Could not host a meeting.",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
 
                     override fun onMeetingRunning() {
-                        Toast.makeText(this@MainActivity, "Created a meeting successfully.", Toast.LENGTH_LONG).show()
+
+                        val idPwd = InMeetingHelper.getIdPassword(ZoomSDK.getInstance())
+                        Toast.makeText(
+                            this@MainActivity,
+                            "ID: ${idPwd.first} PWD: ${idPwd.second}",
+                            Toast.LENGTH_LONG
+                        ).show()
+
                     }
 
                 }).createInstantMeeting()
+
         }
+
+        InMeetingHelper.getUpdates(
+            ZoomSDK.getInstance(),
+            object : InMeetingHelper.MeetingUpdateListener {
+                override fun onSomeoneJoinedMeeting() {
+                }
+
+                override fun onSomeoneLeftMeeting() {
+                }
+
+                override fun onMeetingLeaveSuccess() {
+                }
+
+                override fun onMeetingEnd() {
+                }
+            })
 
     }
 
