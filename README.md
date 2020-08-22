@@ -1,6 +1,6 @@
 # Zoom SDK Example
 
-This is a simple zoom sdk example code which was originally published in my blog, [read full  article](https://techenum.com/zoom-sdk-android-learn-how-to-create-an-online-meeting/). 
+This is a simple zoom sdk example code which was originally published in my blog, two parts have been listed below. 
   - [Part 1 ( Hosting a Meeting )](https://techenum.com/zoom-sdk-android-learn-how-to-create-an-online-meeting/)
   - [Part 2 ( Joining a Meeting )](https://techenum.com/zoom-sdk-android-learn-how-to-join-an-online-meeting/)
    
