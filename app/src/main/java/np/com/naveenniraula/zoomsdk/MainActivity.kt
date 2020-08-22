@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import us.zoom.sdk.*
@@ -11,11 +12,30 @@ import us.zoom.sdk.*
 class MainActivity : AppCompatActivity(), ZoomSDKInitializeListener, ZoomSDKAuthenticationListener {
 
     private lateinit var msg: TextView
+
     private lateinit var startMeeting: Button
+    private lateinit var joinMeeting: Button
+
+    private lateinit var meetingId: EditText
+    private lateinit var meetingPassword: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        joinMeeting = findViewById(R.id.button5)
+        meetingId = findViewById(R.id.editTextTextPersonName)
+        meetingPassword = findViewById(R.id.editTextTextPersonName2)
+
+        joinMeeting.setOnClickListener {
+            JoinMeetingHelper().joinMeeting(
+                this,
+                ZoomSDK.getInstance(),
+                meetingId.text.toString(),
+                meetingPassword.text.toString(),
+                "TechEnum"
+            )
+        }
 
         // to show visual feedback
         msg = findViewById(R.id.auth_result)
@@ -44,6 +64,10 @@ class MainActivity : AppCompatActivity(), ZoomSDKInitializeListener, ZoomSDKAuth
                             "ID: ${idPwd.first} PWD: ${idPwd.second}",
                             Toast.LENGTH_LONG
                         ).show()
+                        Log.d("MainActivity", "ID: ${idPwd.first} PWD: ${idPwd.second}")
+
+                        meetingId.setText(idPwd.first)
+                        meetingPassword.setText(idPwd.second)
 
                     }
 
